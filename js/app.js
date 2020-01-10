@@ -11,7 +11,6 @@
 
 let imgArr = [];
 
-
 function Image (imgObject) {
     this.image_url = imgObject.image_url;
     this.title = imgObject.title;
@@ -21,27 +20,20 @@ function Image (imgObject) {
 }
 
 // render function 
-
 Image.prototype.render = function() {
     $('main').append('<div class="clone"></div>');
     let imageClone = $('div[class="clone"]');
-
     let imageHtml = $('#photo-template').html();
-
     imageClone.html(imageHtml);
-
     imageClone.find('h2').text(this.title);
     imageClone.find('img').attr('src', this.image_url); imageClone.find('img').attr('alt', this.title);    
     imageClone.find('p').text(this.description);
     imageClone.removeClass('clone');
     imageClone.attr('class' , this.keyword);
-
-
 };
 
-
 Image.readJson = () => { 
-    $.get('../data/page-1.json','json')
+    $.ajax('../data/page-1.json','json')
     .then(imgData => {
         imgData.forEach(imageItem => {
             imgArr.push(new Image(imageItem));
@@ -52,7 +44,7 @@ Image.readJson = () => {
 
 Image.loadImage = () => {
     imgArr.forEach(imgObject => imgObject.render());
-    imgArr.forEach(imgObject => imgObject.renderList());
+    renderList();
 };
 
 $(() => Image.readJson());
@@ -66,38 +58,91 @@ $(() => Image.readJson());
 // write a function that responds to users click
 // when clicked, all images w/ keywords are .show, everything else is .hide
 
+function renderList () {
+    let keywordFilter = [];
+    imgArr.forEach((keywordCheck) => {
+        if(!keywordFilter.includes(keywordCheck.keyword)) {
+            console.log(keywordCheck.keyword); 
+            keywordFilter.push(keywordCheck.keyword);
+            $('select').append(`<option>${keywordCheck.keyword}</option>`);
+    }
+    });
 
 
+
+
+
+
+
+
+
+
+
+    // check if keyword already exists (.include!!!), 
+        //if not .push to the array
+        //render it to the DOM
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//     //selecting the parent & creating an option
+//     $('select').append('<option class="clone"></option>');
+//     $('option').append('<p></p>');
+//     let $listClone = $('option[class="clone"]');
+//     //fill the option
+//     $listClone.find('option').text(this.keyword)
+//     $listClone.removeClass('clone');
+//     $listClone.attr('class', this.keyword);
+//     //find the option
+//     $listClone.find('p').text(this.keyword) 
+};
+
+
+// Feature #2: 
+// 1. 'Listen' for click, on(click) run the event listener function
+// 2. .show or .fadein anything that is equal to that keyword (?? .includes ??)
+// 3. Reset button?
+
+// create a global array holding unique arrays
+// use unique array to make dropdown
+// on('select change'), collect .this .hide all, .show classes that match keyword
 
 
 Image.prototype.renderList = function() {
     //selecting the parent & creating an option
-    $('select').append('<option class="clone"></option>');
-
+    imgArr.forEach()
+   
     $('option').append('<p></p>');
-    
-
     let $listClone = $('option[class="clone"]');
     //fill the option
     $listClone.find('option').text(this.keyword)
     $listClone.removeClass('clone');
     $listClone.attr('class', this.keyword);
-
-
-    //fill the option
-    $listClone.find('p').text(this.title)
-    
+    //find the option
+    $listClone.find('p').text(this.keyword) 
 };
-
-
-
-
-    // let listClone = $('option[class="clone"]');
-
-    // let listHtml = $().html();
-
-    // imageClone.html(imageHtml);
-
-    // imageClone.find('h2').text(this.title);
-    // imageClone.find('img').attr('src', this.image_url); imageClone.find('img').attr('alt', this.title);    
-    // imageClone.find('p').text(this.description);
