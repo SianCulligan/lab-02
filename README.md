@@ -13,6 +13,6 @@ Estimate of time needed to complete: _3 hours_
 
 Start time: 6:17pm
 
-Finish time: _____
+Finish time: Sunday, 1:30pm
 
-Actual time needed to complete: _____
+Actual time needed to complete: 5 days
