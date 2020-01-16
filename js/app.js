@@ -19,23 +19,23 @@ function Image (imgObject) {
     this.horns = imgObject.horns;
 }
 
-let keyword = [];
+// let keyword = [];
 
-Image.prototype.filterImage = function () {
-    imgArr.forEach(value => {
-   if(keyword.indexOf(value.keyword) < -1) {
-    } else {
-        keyword.push(imgArr.value);
+// Image.prototype.filterImage = function () {
+//     imgArr.forEach(value => {
+//    if(keyword.indexOf(value.keyword) < -1) {
+//     } else {
+//         keyword.push(imgArr.value);
     
-};
-    });
-// keyword.forEach(value => ($(`select`).append(`<option id ="option_${value}">${value}</option>`));
+// };
+//     });
+// // keyword.forEach(value => ($(`select`).append(`<option id ="option_${value}">${value}</option>`));
 
      
 
     
 
-};
+// };
 
 Image.prototype.render = function() {
     $('main').append('<div class="clone"></div>');
@@ -71,33 +71,43 @@ Image.loadImage = () => {
     imgArr.forEach(imgObject => imgObject.renderList());
 };
 
-
-
+let seen = {};
 
 
 Image.prototype.renderList = function() {
-    //selecting the parent & creating an option
-    $('select').append('<option class="clone">Filter By Key Word</option>');
+    if (!seen[this.keyword]){
+        $('select').append(`<option value = ${this.keyword} >${this.keyword}</option>`);
+        seen[this.keyword] = true;
+    }
+
+
     
-    $('option').append('<p></p>');
-    
-    
-    let listClone = $('option[class="clone"]');
-    //fill the option
-    listClone.find('option').text(this.keyword)
-    listClone.removeClass('clone');
-    listClone.attr('class', this.keyword);
+    // $('option').append('<p></p>');
     
     
-    //fill the option
-    listClone.find('p').text(this.title)
+    // let listClone = $('option[class="clone"]');
+    // //fill the option
+    // listClone.val(this.keyword);
+    // listClone.removeClass('clone');
+    // // listClone.attr('class', this.keyword);
+    
+    // //fill the option
+    // listClone.find('p').text(this.title)
     
     $('select').on('change',(e)=> {
         let option = e.target.value;
+        console.log(option);
         $('div').hide();
-        $(`.${option}`).show();
-        // console.log('select');
+        if (option === 'default') {
+            $('div').show();
+        }else{
+            $(`.${option}`).show();
+        }
+        
+        
     });
+
+   
 };
 
 $(() => Image.readJson());
