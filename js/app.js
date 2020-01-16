@@ -1,23 +1,15 @@
-'use strict'
-
-// Feature 1: 
-// - As a user, I want to view the images on the page so that I can browse the photo collection
-
-// 1. X open an Array
-// 2. X create a constructor function
-// 3. Build a prototype
-// 4. .Get using AJAX
-// 5. .append to the DOM
+'use strict';
 
 let imgArr = [];
 
 function Image (imgObject) {
-    this.image_url = imgObject.image_url;
-    this.title = imgObject.title;
-    this.description = imgObject.description;
-    this.keyword = imgObject.keyword;
-    this.horns = imgObject.horns;
+  this.image_url = imgObject.image_url;
+  this.title = imgObject.title;
+  this.description = imgObject.description;
+  this.keyword = imgObject.keyword;
+  this.horns = imgObject.horns;
 }
+
 
 let keyword = [];
 
@@ -58,18 +50,20 @@ Image.prototype.render = function() {
        
     Image.readJson = () => { 
     $.get('../data/page-1.json','json')
+
     .then(imgData => {
-        imgData.forEach(imageItem => {
-            imgArr.push(new Image(imageItem));
-        });
+      imgData.forEach(imageItem => {
+        imgArr.push(new Image(imageItem));
+      });
     })
     .then(Image.loadImage);
-}; 
+};
 
 Image.loadImage = () => {
-    imgArr.forEach(imgObject => imgObject.render());
-    imgArr.forEach(imgObject => imgObject.renderList());
+  imgArr.forEach(imgObject => imgObject.render());
+  renderList();
 };
+
 
 
 
@@ -116,4 +110,5 @@ $(() => Image.readJson());
 //       $('select').append(optionTag);
 //     });
 // };
+
 

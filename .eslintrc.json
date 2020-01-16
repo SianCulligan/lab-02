@@ -1,3 +1,5 @@
+
+
 {
     "globals" : {
       "Handlebars": true,
@@ -9,22 +11,25 @@
     },
     "env": {
       "browser": true,
-      "jquery": true,
-      "node": true,
       "es6": true,
-      "jest": true
+      "jest": true,
+      "jquery": true,
+      "node": true
     },
     "rules": {
+      "eol-last": "error",
       "eqeqeq": ["error", "always"],
-      "no-template-curly-in-string": "error",
-      "no-console": "off",
-      "no-undefined": "off",
       "indent": ["error", 2],
-      "quotes": ["warn", "single", {"allowTemplateLiterals": true}],
-      "no-multi-spaces": ["warn", {"exceptions": { "VariableDeclarator": true }}],
-      "no-trailing-spaces": "warn",
       "new-cap": "warn",
+      "no-console": "off",
+      "no-multi-spaces": ["warn", {"exceptions": { "VariableDeclarator": true }}],
       "no-redeclare": ["error", { "builtinGlobals": true }],
-      "eol-last": "error"
+      "no-template-curly-in-string": "error",
+      "no-trailing-spaces": "warn",
+      "no-undefined": "off",
+      "quotes": ["warn", "single", {"allowTemplateLiterals": true}],
+      "semi": "error"
     }
   }
+  
+
