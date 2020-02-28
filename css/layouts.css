@@ -1,27 +1,5 @@
 
-body {
-    width: 960px;
-    margin: 0px auto;
-}
-
 img {
-
-    height: 150px;
-    width: 150px;
-   
-    /* float: left; */
-    display: flex;
-
-}
-.tomObject{
-    float: left;
-    text-align: center;
-    border: 1px solid black;
-    width: 235px;
-    height: 400px;
-}
-
-
     height: 175px;
     width: 200px;
     border: 2px solid black;
@@ -41,6 +19,5 @@ div {
 }
 
 div:hover {
-    background-color: rgb(255, 219, 231);
+    background-color: rgb(130, 117, 250);
 }
-
