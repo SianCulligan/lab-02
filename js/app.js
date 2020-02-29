@@ -1,78 +1,72 @@
 'use strict';
 
-let imgArr = [];
 
-function Image (imgObject) {
-  this.image_url = imgObject.image_url;
-  this.title = imgObject.title;
-  this.description = imgObject.description;
-  this.keyword = imgObject.keyword;
-  this.horns = imgObject.horns;
+// Constructor function for images from the JSON file
+
+function Image (image) {
+  this.url = image.image_url;
+  this.title = image.title;
+  this.description = image.description;
+  this.keyword = image.keyword;
+  this.horns = image.horns;
 }
 
-// render function
+Image.allImages = [];
+let keywords = [];
+
 Image.prototype.render = function() {
-  $('main').append('<div class="clone"></div>');
-  let imageClone = $('div[class="clone"]');
+//   let template = $('#photo-template').html();
+  $('main').append('<section class="clone"></section>');
+  let imageClone = $('section[class="clone"]');
   let imageHtml = $('#photo-template').html();
   imageClone.html(imageHtml);
   imageClone.find('h2').text(this.title);
-  imageClone.find('img').attr('src', this.image_url); imageClone.find('img').attr('alt', this.title);
+  imageClone.find('img').attr('src', this.url);
   imageClone.find('p').text(this.description);
   imageClone.removeClass('clone');
-  imageClone.attr('class' , this.keyword);
+  imageClone.attr('class', this.keyword);
 };
 
-//generate images from page-1
 Image.readJson = () => {
-  $.ajax('../data/page-1.json','json')
-    .then(imgData => {
-      imgData.forEach(imageItem => {
-        imgArr.push(new Image(imageItem));
+  $.get('./data/page-1.json', 'json')
+    .then(data => {
+      data.forEach(item => {
+        Image.allImages.push(new Image(item));
+        if (!keywords.includes(item.keyword)) {
+          keywords.push(item.keyword);
+        }
       });
     })
-    .then(Image.loadImage);
+    .then(Image.loadImages)
+    .then(Image.appendKeywords);
 };
 
-Image.loadImage = () => {
-  imgArr.forEach(imgObject => imgObject.render());
-  renderList();
+Image.loadImages = () => {
+  Image.allImages.forEach(image => image.render());
 };
 
-$(() => Image.readJson());
+Image.appendKeywords = () => {
+  keywords.forEach(key => {
+    let $option = $(`<option class="${key}">${key}</option>`);
+    $('select').append($option);
+  });
+};
 
-//generate keyword list
-let keywordFilter = [];
-
-function renderList () {
-  imgArr.forEach((keywordCheck) => {
-    if(!keywordFilter.includes(keywordCheck.keyword)) {
-      console.log(keywordCheck.keyword);
-      keywordFilter.push(keywordCheck.keyword);
-      $('select').append(`<option>${keywordCheck.keyword}</option>`);
+$(() => {
+  console.log('added event listener');
+  $('select').on('change', function() {
+    console.log('CLICK!');
+    if (this.value === 'all') {
+      $('section').show();
+      $('#photo-template').hide();
+    } else if (this.value !== 'default') {
+      $('section').hide();
+      // let key = event.target.value;
+      $(`section[class="${this.value}"]`).show();
+      console.log('end of event listener');
     }
   });
-}
-
-Image.prototype.renderList = function() {
-  //select the parent & creating an option
-  imgArr.forEach();
-  $('option').append('<p></p>');
-  let $listClone = $('option[class="clone"]');
-  //fill the option
-  $listClone.find('option').text(this.keyword);
-  $listClone.removeClass('clone');
-  $listClone.attr('class', this.keyword);
-  //find the option
-  $listClone.find('p').text(this.keyword);
-};
-
-//filter by keyword
-keywordFilter.forEach(function(value) {
-  $('select') .append(`<option id="option_${value}">${value}</option>`);});
-
-$('select').on('change', (event) => {
-  let option = event.target.value;
-  $('div').hide();
-  $(`.${option}`).show();
 });
+
+$(() => Image.readJson());
+$('#photo-template').hide();

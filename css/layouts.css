@@ -1,23 +1,21 @@
 
-img {
-    height: 175px;
+h1 {
+    font-size: 40px;
+    font-family: 'Gayathri', sans-serif;
+    margin: 20px 0;
+  }
+  
+  section {
+    float: left;
+    border: 3px solid rgb(72, 72, 153);
+    border-radius: 10px;
     width: 200px;
-    border: 2px solid black;
-}
-
-div {
-    width: 400px;
-    height: 400px;
-    position: relative;
-    border: 4px solid black;
-    text-align: center;
-    display: inline-block;
-    margin: auto auto auto 10px;
-    text-overflow: unset;
-    overflow: scroll;
-    font-kerning: auto;
-}
-
-div:hover {
-    background-color: rgb(130, 117, 250);
-}
+    height: 200px;
+    margin: 8px 10px;
+    padding-top: 5px;
+  }
+  
+  footer {
+    clear: both;
+    margin-top: 20px;
+  }

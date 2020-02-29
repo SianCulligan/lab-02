@@ -1,7 +1,10 @@
 body {
-    background-color: rgb(218, 218, 144);
-}
-
-div {
-    background-color: rgb(159, 233, 165);
-}
+    width: 80%;
+    margin: auto;
+    text-align: center;
+  }
+  
+  main {
+    width: 90%;
+    margin: auto;
+  }
